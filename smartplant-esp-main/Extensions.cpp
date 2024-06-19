@@ -21,10 +21,6 @@ void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor,Pin rainSe
     Serial.println(soilSensor.readAnalog());
     Serial.print("Rain: ");
     Serial.println(rainSensor.readAnalog());
-    // Serial.print("Humidity: ");
-    // Serial.println(sensorDHT.humidity());
-    // Serial.print("Temperature: ");
-    // Serial.println(sensorDHT.temperature());
   }
 }
 }

@@ -16,22 +16,5 @@ public:
 private:
   int pin;
 };
-/**
-*/
-class BehaviourDHT {
-public:
-  BehaviourDHT(int pin);
-  void start();
-  float humidity();
-  float temperature();
-private:
-  int pin;
-  DHT *dht;
-};
-class WifiManager {
-public:
-  WifiManager();
-private:
-};
 }
 #endif

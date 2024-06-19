@@ -31,6 +31,16 @@
 
 #### Esp32
 
+Dowload board on IDE
+
+***esp32 by espressif systems***
+
+Arduino IDE board url for ESP 32
+
+``` url
+https://espressif.github.io/arduino-esp32/package_esp32_index.json
+```
+
 >References
 >
 >- [Simulator](https://wokwi.com/esp32)
