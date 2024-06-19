@@ -6,32 +6,18 @@
 using namespace smartplant;
 using namespace synctime;
 using namespace extensions;
- 
-
 //GLOBALS PINS
-Pin lightSensor(12);
-BehaviourDHT sensorDHT(1);
-// Pin soildSensor();
-
+Pin lightSensor(12); // CHANGE TO 13 ???  BECAUSE 12 HAS A BOOT BEHAVIOUR EFFECT
+BehaviourDHT sensorDHT(33); // SEE IF 33 IS OK
+Pin soilSensor(14); // SEE IF 14 IS OK
 
 void setup() {
   incorporatedLed.pinOutput();
   Serial.begin(9600);
-
-  
 }
 
 void loop() {
   int currentMilis = millis();
-
-
-  Serial.print("Seconds running: ");
-  Serial.println(Unit::millisInSeconds(currentMilis));
-  Serial.print("Light: ");
-  Serial.println(lightSensor.readAnalog());
-  Serial.print("Humidity: ");
-  Serial.println(sensorDHT.humidity());
-  Serial.print("Temperature: ");
-  Serial.println(sensorDHT.temperature());
   toggleLed(currentMilis);
+  extensions::log(currentMilis, lightSensor, soilSensor, sensorDHT);
 }

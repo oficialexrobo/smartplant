@@ -10,4 +10,18 @@ void toggleLed(unsigned long millis) {
     incorporatedLed.write(LOW);
   }
 }
+void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor, BehaviourDHT sensorDHT) {
+  if (currentMillis % 1000 == 0) {
+    Serial.print("Seconds running: ");
+    Serial.println(Unit::millisInSeconds(currentMillis));
+    Serial.print("Light: ");
+    Serial.println(lightSensor.readAnalog());
+    Serial.print("Soil humidity: ");
+    Serial.println(soilSensor.readAnalog());
+    Serial.print("Humidity: ");
+    Serial.println(sensorDHT.humidity());
+    Serial.print("Temperature: ");
+    Serial.println(sensorDHT.temperature());
+  }
+}
 }
