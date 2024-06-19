@@ -1,7 +1,7 @@
 # [GreenGrow](https://greengrow.netlify.app)
 
 <p align="center">
-  <a href="https://greengrow.netlify.app" target="_blank"><img src=".web.svg" width="128" alt="example" /></a>
+  <a href="https://greengrow.netlify.app" target="_blank"><img src=".web.svg" width="256" alt="example" /></a>
 </p>
 
 ## SmartPlant
