@@ -7,8 +7,9 @@ using namespace smartplant;
 using namespace synctime;
 using namespace extensions;
 //GLOBALS PINS
-Pin lightSensor(12); // CHANGE TO 13 ???  BECAUSE 12 HAS A BOOT BEHAVIOUR EFFECT
-BehaviourDHT sensorDHT(33); // SEE IF 33 IS OK
+Pin lightSensor(13); // CHANGE TO 13 ???  BECAUSE 12 HAS A BOOT BEHAVIOUR EFFECT
+// BehaviourDHT sensorDHT(33); // SEE IF 33 IS OK
+Pin rainSensor(33); // SEE IF 33 IS OK
 Pin soilSensor(14); // SEE IF 14 IS OK
 
 void setup() {
@@ -19,5 +20,5 @@ void setup() {
 void loop() {
   int currentMilis = millis();
   toggleLed(currentMilis);
-  extensions::log(currentMilis, lightSensor, soilSensor, sensorDHT);
+  extensions::log(currentMilis, lightSensor, soilSensor,rainSensor);
 }

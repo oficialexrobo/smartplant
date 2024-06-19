@@ -5,6 +5,6 @@ using namespace smartplant;
 namespace extensions {
 static Pin incorporatedLed(2);
 void toggleLed(unsigned long millis);
-void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor, BehaviourDHT sensorDHT);
+void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor,Pin rainSensor);
 }
 #endif
