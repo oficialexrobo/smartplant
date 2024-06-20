@@ -19,6 +19,7 @@ Pin rainSensor(33);
 //GLOBALS VARIABLES
 const char* SSID = "moto100";
 const char* PASSWD = "}KV-OI8v";
+const char* MQTT_SERVER = "tcp://192.168.1.10:1883";
 
 //IDEA ** PUT ALL IN SETUP AND USE LOOP ONLY TO UPDATE THE APP INFOS
 void setup() {
@@ -41,7 +42,7 @@ void setup() {
 void loop() {
   int currentMilis = millis();
   toggleLed(currentMilis);
-  // log(currentMilis, lightSensor, soilSensor,rainSensor);
+  log(currentMilis, lightSensor, soilSensor,rainSensor);
 
   // if (millisInSeconds(currentMilis) > 60 * 30) {
   //   ESP.restart();
