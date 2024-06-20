@@ -6,16 +6,20 @@ void toggleLed(unsigned long millis) {
   }
 }
 
-void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor,Pin rainSensor) {
+void log(unsigned long currentMillis, int light, int soil,int rain) {
   if (currentMillis % 1000 == 0 && currentMillis % 2 == 0) {
-    Serial.println("___________________________");
+    Serial.println("-------------------------");
+    Serial.print("[WiFi] Connected with IP: ");
+    Serial.println(WiFi.localIP()); 
     Serial.print("Seconds running: ");
     Serial.println(millisInSeconds(currentMillis));
     Serial.print("Light: ");
-    Serial.println(lightSensor.readAnalog());
+    Serial.println(light);
     Serial.print("Soil humidity: ");
-    Serial.println(soilSensor.readAnalog());
+    Serial.println(soil);
     Serial.print("Rain: ");
-    Serial.println(rainSensor.readAnalog());
+    Serial.println(rain);
+    Serial.print("Distance: ");
+    Serial.println(distance());
   }
 }
