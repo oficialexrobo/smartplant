@@ -45,3 +45,26 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 >
 >- [Simulator](https://wokwi.com/esp32)
 >- [Pinout](https://www.circuitstate.com/pinouts/doit-esp32-devkit-v1-wifi-development-board-pinout-diagram-and-reference/)
+
+### Create MQTT Broker (Server)
+
+> Termux
+>
+>- [Github](https://github.com/termux/termux-app/releases)
+>- [PlayStore](https://play.google.com/store/apps/details?id=com.termux)
+
+#### Setps to install mosquitto
+
+``` termux
+apt update
+```
+
+``` termux
+pkg install mosquitto
+```
+
+#### Run
+
+``` termux
+mosquitto
+```

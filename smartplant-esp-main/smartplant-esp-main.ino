@@ -1,4 +1,5 @@
 #include <WiFi.h>
+#include <websocket.h>
 //GLOBALS PINS
 class Pin {
 public:
@@ -21,6 +22,12 @@ Pin rele(27);
 const int trigger = 4;
 const int echo = 32;
 //NETWORK SETTINGS
+// IPAddress ip(192, 168, 1, 17);
+// IPAddress gateway(192, 168, 185, 242);
+// IPAddress mask(255, 255, 255, 0);
+// IPAddress dns0(8, 8, 8, 8);
+// IPAddress dns1(8, 8, 4, 4);
+
 const char* SSID = "moto100";
 const char* PASSWD = "}KV-OI8v";
 const char* MQTT_SERVER = "tcp://192.168.185.242:1883";  //IN CASE OF THIS GATEWAY CHANGES, AKS TO SOMEONE CONNECT TO NETWORK BY OTHER DEVICE AND SEE THE NEW IP
@@ -36,6 +43,10 @@ void pinAll() {
 }
 
 void initNetwork() {
+  // if (!WiFi.config(ip, gateway, mask)) {
+  //   Serial.println("Error on setup IP");
+  //   ESP.restart();
+  // }
   WiFi.begin(SSID, PASSWD);
   WiFi.setAutoReconnect(true);
   while (WiFi.status() != WL_CONNECTED) {
@@ -52,7 +63,7 @@ void setup() {
   pinAll();
   Serial.begin(9600);
   delay(10);
-  initNetwork()
+  initNetwork();
 }
 
 void loop() {
