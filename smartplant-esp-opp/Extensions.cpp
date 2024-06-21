@@ -1,18 +1,22 @@
-#include "esp32"
-#include "Extensions.h"
-#include "Time.h"
-using namespace synctime;
-namespace extensions {
-void toggleLed(unsigned long millis) {
+#include "esp32-hal.h"
+#include "HardwareSerial.h"
+#include "Smartplant.h"
+namespace smartplant {
+void Extensions::init() {
+  Pin initLedPin(2);
+  initLedPin.pinOutput();
+  incorporatedLed = &initLedPin;
+}
+void Extensions::toggleLed(unsigned long millis) {
   if (Unit::millisInSeconds(millis) % 2 == 0) {
-    incorporatedLed.write(HIGH);
+    incorporatedLed->write(HIGH);
   } else {
-    incorporatedLed.write(LOW);
+    incorporatedLed->write(LOW);
   }
 }
-void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor,Pin rainSensor) {
+void Extensions::log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor, Pin rainSensor, Ultrasonic ultrasonic) {
   if (currentMillis % 1000 == 0 && currentMillis % 2 == 0) {
-    Serial.println("___________________________");
+    Serial.println("=================================");
     Serial.print("Seconds running: ");
     Serial.println(Unit::millisInSeconds(currentMillis));
     Serial.print("Light: ");
@@ -21,6 +25,9 @@ void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor,Pin rainSe
     Serial.println(soilSensor.readAnalog());
     Serial.print("Rain: ");
     Serial.println(rainSensor.readAnalog());
+    Serial.print("Distance: ");
+    Serial.print(ultrasonic.distance());
+    Serial.println("cm");
   }
 }
 }

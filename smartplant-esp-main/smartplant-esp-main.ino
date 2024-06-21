@@ -20,13 +20,12 @@ Pin rele(27);
 //GLOBALS VARIABLES
 const int trigger = 4;
 const int echo = 32;
-//
+//NETWORK SETTINGS
 const char* SSID = "moto100";
 const char* PASSWD = "}KV-OI8v";
-const char* MQTT_SERVER = "tcp://192.168.1.10:1883";
+const char* MQTT_SERVER = "tcp://192.168.185.242:1883";  //IN CASE OF THIS GATEWAY CHANGES, AKS TO SOMEONE CONNECT TO NETWORK BY OTHER DEVICE AND SEE THE NEW IP
 
-//IDEA ** PUT ALL IN SETUP AND USE LOOP ONLY TO UPDATE THE APP INFOS
-void setup() {
+void pinAll() {
   pinMode(trigger, OUTPUT);
   pinMode(echo, INPUT);
   incorporatedLed.pinOutput();
@@ -34,8 +33,9 @@ void setup() {
   lightSensor.pinInput();
   soilSensor.pinInput();
   rainSensor.pinInput();
-  Serial.begin(9600);
-  delay(10);
+}
+
+void initNetwork() {
   WiFi.begin(SSID, PASSWD);
   WiFi.setAutoReconnect(true);
   while (WiFi.status() != WL_CONNECTED) {
@@ -47,15 +47,16 @@ void setup() {
   }
 }
 
-bool releToggle = false;
+void setup() {
+  //IDEA ** PUT ALL IN SETUP AND USE LOOP ONLY TO UPDATE THE APP INFOS
+  pinAll();
+  Serial.begin(9600);
+  delay(10);
+  initNetwork()
+}
 
 void loop() {
   int currentMilis = millis();
   toggleLed(currentMilis);
   log(currentMilis, lightSensor.readAnalog(), soilSensor.readAnalog(), rainSensor.readAnalog());
-
-
-  // if (millisInSeconds(currentMilis) > 60 * 30) {
-  //   ESP.restart();
-  // }
 }
