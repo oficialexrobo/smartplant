@@ -19,7 +19,7 @@ private:
 /**
 */
 class Ultrasonic {
-public: 
+public:
   Ultrasonic(int trigger, int echo);
   void init();
   float distance();
@@ -51,9 +51,20 @@ class Extensions {
 public:
   void init();
   void toggleLed(unsigned long millis);
-  void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor, Pin rainSensor);
+  void log(unsigned long currentMillis, Pin lightSensor, Pin soilSensor, Pin rainSensor,Ultrasonic ultrasonic);
 private:
-  Pin *incorporatedLed;
+  Pin* incorporatedLed;
+}; 
+/**
+*/
+class LocalNetwork {
+public:
+  LocalNetwork(char* ssid, char* passwd, char* mqttServe);
+  void init();
+private:
+  char* ssid;
+  char* passwd;
+  char* mqttServe;
 };
 }
 #endif
