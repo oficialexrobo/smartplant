@@ -1,4 +1,3 @@
-
 Pin::Pin(int pin) {
   this->pin = pin;
 }

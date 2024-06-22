@@ -1,5 +1,7 @@
 #include <WiFi.h>
-#include <websocket.h>
+#include <ESPAsyncWebServer.h>
+#include <AsyncWebSocket.h>
+
 //GLOBALS PINS
 class Pin {
 public:
@@ -21,16 +23,12 @@ Pin rele(27);
 //GLOBALS VARIABLES
 const int trigger = 4;
 const int echo = 32;
-//NETWORK SETTINGS
-// IPAddress ip(192, 168, 1, 17);
-// IPAddress gateway(192, 168, 185, 242);
-// IPAddress mask(255, 255, 255, 0);
-// IPAddress dns0(8, 8, 8, 8);
-// IPAddress dns1(8, 8, 4, 4);
+
+// ws://192.168.185.17/smartp
+AsyncWebSocket ws("smartp");
 
 const char* SSID = "moto100";
 const char* PASSWD = "}KV-OI8v";
-const char* MQTT_SERVER = "tcp://192.168.185.242:1883";  //IN CASE OF THIS GATEWAY CHANGES, AKS TO SOMEONE CONNECT TO NETWORK BY OTHER DEVICE AND SEE THE NEW IP
 
 void pinAll() {
   pinMode(trigger, OUTPUT);
@@ -42,21 +40,6 @@ void pinAll() {
   rainSensor.pinInput();
 }
 
-void initNetwork() {
-  // if (!WiFi.config(ip, gateway, mask)) {
-  //   Serial.println("Error on setup IP");
-  //   ESP.restart();
-  // }
-  WiFi.begin(SSID, PASSWD);
-  WiFi.setAutoReconnect(true);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    int currentMilis = millis();
-    if (millisInSeconds(currentMilis) > 20) {
-      ESP.restart();
-    }
-  }
-}
 
 void setup() {
   //IDEA ** PUT ALL IN SETUP AND USE LOOP ONLY TO UPDATE THE APP INFOS
@@ -64,10 +47,15 @@ void setup() {
   Serial.begin(9600);
   delay(10);
   initNetwork();
+
+  ws.onEvent(onWebSocketEvent);
 }
 
 void loop() {
   int currentMilis = millis();
   toggleLed(currentMilis);
   log(currentMilis, lightSensor.readAnalog(), soilSensor.readAnalog(), rainSensor.readAnalog());
+  
+  ws.textAll(" ");
+
 }

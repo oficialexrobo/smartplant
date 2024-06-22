@@ -46,25 +46,23 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 >- [Simulator](https://wokwi.com/esp32)
 >- [Pinout](https://www.circuitstate.com/pinouts/doit-esp32-devkit-v1-wifi-development-board-pinout-diagram-and-reference/)
 
-### Create MQTT Broker (Server)
+### Libs to create WebSocketServe
 
-> Termux
+***Download zip and import following this steps: Arduino IDE -> Sketch -> Include lib -> Add .ZIP***
+
+>Directly links
 >
->- [Github](https://github.com/termux/termux-app/releases)
->- [PlayStore](https://play.google.com/store/apps/details?id=com.termux)
+>- [ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer/archive/master.zip)
+>- [AsyncTCP](https://github.com/me-no-dev/AsyncTCP/archive/master.zip)
 
-#### Setps to install mosquitto
+#### Repos and Docs
 
-``` termux
-apt update
-```
+>Github
+>
+>- [ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer/)
+>- [AsyncTCP](https://github.com/me-no-dev/AsyncTCP/)
 
-``` termux
-pkg install mosquitto
-```
-
-#### Run
-
-``` termux
-mosquitto
+``` cpp
+#include <ESPAsyncWebServer.h>
+#include <AsyncWebSocket.h>
 ```
