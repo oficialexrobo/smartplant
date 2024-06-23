@@ -24,8 +24,8 @@ Pin rele(27);
 const int trigger = 4;
 const int echo = 32;
 
-// ws://192.168.185.17/smartp
-AsyncWebSocket ws("smartp");
+// ws://192.168.185.17/smartplant
+AsyncWebSocket ws("smartplant");
 
 const char* SSID = "moto100";
 const char* PASSWD = "}KV-OI8v";
@@ -40,6 +40,8 @@ void pinAll() {
   rainSensor.pinInput();
 }
 
+bool ledState = false;
+bool pumpState = false;
 
 void setup() {
   //IDEA ** PUT ALL IN SETUP AND USE LOOP ONLY TO UPDATE THE APP INFOS
@@ -53,9 +55,24 @@ void setup() {
 
 void loop() {
   int currentMilis = millis();
-  toggleLed(currentMilis);
-  log(currentMilis, lightSensor.readAnalog(), soilSensor.readAnalog(), rainSensor.readAnalog());
-  
-  ws.textAll(" ");
+  const int humidity = map(soilSensor.readAnalog(), 0, 4095, 0, 100);
+  const int light = map(lightSensor.readAnalog(), 0, 4095, 0, 100);
+  const int rain = map(rainSensor.readAnalog(), 0, 4095, 0, 100);
+  const int waterQtd = map(distance(), 0, 4095, 0, 100);
 
+  if (ledState) {
+    toggleLed(currentMilis);
+  }
+  log(currentMilis, light, humidity, rain, waterQtd);
+  char text[19];
+  //ORDER -> humidity, light, rain, water,ledState,pumpState
+  sprintf(text, "%d,%d,%d,%d,%d,%d", humidity, light, rain, waterQtd, ledState ? 1 : 0, pumpState ? 1 : 0);
+  ws.textAll("text");
+  delay(2000);
+  if (pumpState) {
+    rele.write(LOW);
+    delay(5000);
+    pumpState = false;
+    rele.write(HIGH);
+  }
 }
