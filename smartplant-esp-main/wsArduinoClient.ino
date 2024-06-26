@@ -31,7 +31,7 @@ void loopWebSocketClient() {
     }
 
     // wait 5 seconds
-    delay(5000);
+    delay(2500);
   }
 
   Serial.println("disconnected");
