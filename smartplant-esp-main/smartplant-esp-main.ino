@@ -25,7 +25,7 @@ Pin rele(27);
 const int trigger = 4;
 const int echo = 32;
 //dataString IS A STRING TO TRASPORT DATA BETWEEN ESP AND SOCKET OR CLIENT
-char dataString[19];
+char dataString[19] = "0,0,0,0,0,0";
 //TOGGLE COMPONENTS STATE
 bool ledState = false;
 bool pumpState = false;
@@ -53,12 +53,11 @@ void setup() {
   Serial.begin(9600);
   delay(10);
   initNetwork();
-  // setupSocket();
+  setupSocket();
 }
 
 void loop() {
-  // mainLoop();
+  mainLoop();
   // testRele();
   Serial.println(distance());
-  // loopSocket();
 }

@@ -28,17 +28,10 @@ void eventHandler(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEvent
 }
 
 void setupSocket() {
-  ws.onEvent(eventHandler);
-  server.addHandler(&ws);
-
   //MAY CHANGE THIS TO LOOP TO REFRESH
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/html", dataString);
   });
 
   server.begin();
-}
-
-void loopSocket() {
-  ws.cleanupClients();
 }
