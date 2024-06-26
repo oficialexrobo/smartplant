@@ -15,21 +15,27 @@ public:
 private:
   int pin;
 };
+//ALL PINS
 Pin incorporatedLed(2);
-Pin lightSensor(13);
-Pin soilSensor(14);
+Pin lightSensor(35);
+Pin soilSensor(34);
 Pin rainSensor(33);
 Pin rele(27);
 //GLOBALS VARIABLES
 const int trigger = 4;
 const int echo = 32;
-
-// ws://192.168.185.17/smartplant
-AsyncWebSocket ws("smartplant");
-
+//dataString IS A STRING TO TRASPORT DATA BETWEEN ESP AND SOCKET OR CLIENT
+char dataString[19];
+//TOGGLE COMPONENTS STATE
+bool ledState = false;
+bool pumpState = false;
+// ws://host/smartplant
 const char* SSID = "moto100";
 const char* PASSWD = "}KV-OI8v";
-
+IPAddress gateway;
+//WEBSERVER && || SOCKET
+AsyncWebServer server(80);
+AsyncWebSocket ws("smartplant"); 
 void pinAll() {
   pinMode(trigger, OUTPUT);
   pinMode(echo, INPUT);
@@ -40,39 +46,19 @@ void pinAll() {
   rainSensor.pinInput();
 }
 
-bool ledState = false;
-bool pumpState = false;
+//IF MAKE WEB SOCKET SERVE (setupSocket and loopSocket) DONT WORK USE WS ARDUINO CLIENT + JS SERVE
 
 void setup() {
-  //IDEA ** PUT ALL IN SETUP AND USE LOOP ONLY TO UPDATE THE APP INFOS
   pinAll();
   Serial.begin(9600);
   delay(10);
   initNetwork();
-
-  ws.onEvent(onWebSocketEvent);
+  // setupSocket();
 }
 
 void loop() {
-  int currentMilis = millis();
-  const int humidity = map(soilSensor.readAnalog(), 0, 4095, 0, 100);
-  const int light = map(lightSensor.readAnalog(), 0, 4095, 0, 100);
-  const int rain = map(rainSensor.readAnalog(), 0, 4095, 0, 100);
-  const int waterQtd = map(distance(), 0, 4095, 0, 100);
-
-  if (ledState) {
-    toggleLed(currentMilis);
-  }
-  log(currentMilis, light, humidity, rain, waterQtd);
-  char text[19];
-  //ORDER -> humidity, light, rain, water,ledState,pumpState
-  sprintf(text, "%d,%d,%d,%d,%d,%d", humidity, light, rain, waterQtd, ledState ? 1 : 0, pumpState ? 1 : 0);
-  ws.textAll("text");
-  delay(2000);
-  if (pumpState) {
-    rele.write(LOW);
-    delay(5000);
-    pumpState = false;
-    rele.write(HIGH);
-  }
+  // mainLoop();
+  // testRele();
+  Serial.println(distance());
+  // loopSocket();
 }
