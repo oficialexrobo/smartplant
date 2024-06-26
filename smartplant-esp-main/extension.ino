@@ -29,7 +29,7 @@ void mainLoop() {
   const int humidity = map(soilSensor.readAnalog(), 0, 4095, 0, 100);
   const int light = map(lightSensor.readAnalog(), 0, 4095, 0, 100);
   const int rain = map(rainSensor.readAnalog(), 0, 4095, 0, 100);
-  const int waterQtd = mappedQtd(distance());
+  const int waterQtd =  ultrasonic.readAnalog();
  
   log(currentMilis, light, humidity, rain, waterQtd);
   //ORDER -> humidity, light, rain, water,ledState,pumpState

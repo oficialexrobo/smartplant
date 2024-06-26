@@ -21,9 +21,10 @@ Pin lightSensor(35);
 Pin soilSensor(34);
 Pin rainSensor(33);
 Pin rele(27);
+Pin ultrasonic(32);
 //GLOBALS VARIABLES
-const int trigger = 4;
-const int echo = 32;
+// const int trigger = 4;
+// const int echo = 32; 
 //dataString IS A STRING TO TRASPORT DATA BETWEEN ESP AND SOCKET OR CLIENT
 char dataString[19] = "0,0,0,0,0,0";
 //TOGGLE COMPONENTS STATE
@@ -37,13 +38,14 @@ IPAddress gateway;
 AsyncWebServer server(80);
 AsyncWebSocket ws("smartplant"); 
 void pinAll() {
-  pinMode(trigger, OUTPUT);
-  pinMode(echo, INPUT);
+  // pinMode(trigger, OUTPUT);
+  // pinMode(echo, INPUT);
   incorporatedLed.pinOutput();
   rele.pinOutput();
   lightSensor.pinInput();
   soilSensor.pinInput();
   rainSensor.pinInput();
+  ultrasonic.pinInput();
 }
 
 //IF MAKE WEB SOCKET SERVE (setupSocket and loopSocket) DONT WORK USE WS ARDUINO CLIENT + JS SERVE
@@ -57,7 +59,7 @@ void setup() {
 }
 
 void loop() {
-  mainLoop();
+  // mainLoop();
   // testRele();
-  Serial.println(distance());
+  Serial.println(ultrasonic.analogRead());
 }

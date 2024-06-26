@@ -3,6 +3,7 @@ const float fullHeight = 25.0f;
 const float radius = 5.2f;
 const int trigger = 10;
 const int echo = 11;
+int value = 0;
 
 //SHOULD RETURN THE VALUES IN ML
 float qtd(float height) {
@@ -29,14 +30,13 @@ float distance() {
 
 void setup() {
   Serial.begin(9600);
+  pinMode(6, OUTPUT);
   pinMode(trigger, OUTPUT);
   pinMode(echo, INPUT);
 }
 
 void loop() {
-  Serial.println("----------------------");
-  Serial.println(distance() * 0.01723 );
-  Serial.println(mappedQtd(distance() * 0.017230 ));
+  value = mappedQtd(distance() * 0.01723);
+  Serial.println(value);
   delay(1000);
-  
 }
