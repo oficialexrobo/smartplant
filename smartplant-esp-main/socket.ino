@@ -28,10 +28,8 @@ void eventHandler(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEvent
 }
 
 void setupSocket() {
-  //MAY CHANGE THIS TO LOOP TO REFRESH
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/html", dataString);
   });
-
   server.begin();
 }

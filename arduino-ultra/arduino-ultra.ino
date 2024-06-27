@@ -1,9 +1,9 @@
-//GET DIMENSIONS WHEN YOU HAVE THE BOTTLE ON HAND TO HAS SURE
-const float fullHeight = 25.0f;
-const float radius = 5.2f;
 const int trigger = 10;
 const int echo = 11;
 int value = 0;
+//GET DIMENSIONS WHEN YOU HAVE THE BOTTLE ON HAND TO HAS SURE
+const float fullHeight = 25.0f;
+const float radius = 5.2f;
 
 //SHOULD RETURN THE VALUES IN ML
 float qtd(float height) {
@@ -26,7 +26,6 @@ float distance() {
   digitalWrite(trigger, LOW);
   return pulseIn(echo, HIGH);
 }
-
 
 void setup() {
   Serial.begin(9600);

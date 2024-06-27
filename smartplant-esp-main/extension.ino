@@ -10,7 +10,7 @@ void log(unsigned long currentMillis, int light, int soil, int rain, int distanc
   Serial.println("-------------------------");
   Serial.print("[WiFi] IP: ");
   Serial.print(WiFi.localIP());
-  Serial.print("- GATEWAY: ");
+  Serial.print(" - GATEWAY: ");
   Serial.println(gateway);
   Serial.print("Seconds running: ");
   Serial.println(millisInSeconds(currentMillis));
@@ -29,7 +29,7 @@ void mainLoop() {
   const int humidity = map(soilSensor.readAnalog(), 0, 4095, 0, 100);
   const int light = map(lightSensor.readAnalog(), 0, 4095, 0, 100);
   const int rain = map(rainSensor.readAnalog(), 0, 4095, 0, 100);
-  const int waterQtd =  ultrasonic.readAnalog();
+  const int waterQtd =  0;
  
   log(currentMilis, light, humidity, rain, waterQtd);
   //ORDER -> humidity, light, rain, water,ledState,pumpState
